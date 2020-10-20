@@ -1,4 +1,4 @@
-"""yblog URL Configuration
+"""config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,23 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
-
+from rest_framework import routers
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
-import blog.views
-
-from rest_framework import routers
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+from blog.views import PostViewSet, CategoryViewSet, TagViewSet, FriendLinkViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -41,17 +40,18 @@ schema_view = get_schema_view(
       license=openapi.License(name="BSD License"),
    ),
    public=True,
-   permission_classes=(permissions.AllowAny,),
+   permission_classes=(permissions.IsAuthenticated,),
 )
 
 router = routers.DefaultRouter()
 
-router.register(r"posts", blog.views.PostViewSet, basename="post")
-router.register(r"categories", blog.views.CategoryViewSet, basename="category")
-router.register(r"tags", blog.views.TagViewSet, basename="tag")
-router.register(r"friendlink", blog.views.FriendLinkViewSet, basename="friendlink")
+router.register(r"posts", PostViewSet, basename="post")
+router.register(r"categories", CategoryViewSet, basename="category")
+router.register(r"tags", TagViewSet, basename="tag")
+router.register(r"friendlink", FriendLinkViewSet, basename="friendlink")
 
 urlpatterns = [
+    url(r'^', include(router.urls)),
     url(r'^api/', include(router.urls)),
     url(r'admin/', admin.site.urls, name="admin_site"),
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

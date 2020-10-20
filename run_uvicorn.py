@@ -3,9 +3,9 @@ import os
 
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yblog.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
     uvicorn.run(
-        "yblog.asgi:application",
+        "config.asgi:application",
         host="127.0.0.1",
         port=8001,
         log_level="debug",

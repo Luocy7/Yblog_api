@@ -4,6 +4,7 @@ Django
 django-filter
 django-pure-pagination
 django-redis-cache
+django-environ
 djangorestframework
 drf-extensions
 python-dateutil

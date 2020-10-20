@@ -9,9 +9,6 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
-from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
-from rest_framework_simplejwt.views import TokenObtainSlidingView
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .filters import PostFilter
