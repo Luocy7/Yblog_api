@@ -3,7 +3,7 @@ import os
 
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     uvicorn.run(
         "config.asgi:application",
         host="127.0.0.1",

@@ -16,47 +16,38 @@ from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 sys.path.append(str(BASE_DIR / "project"))
 
 env = environ.Env()
 
-env_name = env.str('PROJECT_ENV', 'local')
-env_file = str(BASE_DIR / 'envs' / f'.env.{env_name}')
-
-env.read_env(env_file)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# False if not in os.environ
-DEBUG = env.bool('DEBUG', default=False)
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY", default='fake-secret-key')
-
-YBLOG_DOMAIN = env.str("YBLOG_DOMAIN", default="http://127.0.0.1:8001")
-
-ALLOWED_HOSTS = [
-    "luocy.top",
-    "127.0.0.1",
-]
-
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
+]
+
+THIRD_PARTY_APPS = [
     'rest_framework',
     'drf_yasg',
-    'django_filters'
+    'django_filters',
 ]
+
+LOCAL_APPS = [
+    'blog.apps.BlogConfig',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR / 'project/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,11 +81,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-
-DATABASES = {
-    'default': env.db(),
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -130,8 +116,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+# STATIC_ROOT = str(BASE_DIR / "static")
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [str(BASE_DIR / "static"), ]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -153,7 +144,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
+    'SIGNING_KEY': '',
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,

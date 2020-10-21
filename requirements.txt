@@ -5,6 +5,7 @@ django-filter
 django-pure-pagination
 django-redis-cache
 django-environ
+django-debug-toolbar
 djangorestframework
 drf-extensions
 python-dateutil
