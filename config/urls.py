@@ -28,19 +28,20 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from blog.views import PostViewSet, CategoryViewSet, TagViewSet, FriendLinkViewSet
+from blog.views_api import PostViewSet, CategoryViewSet, TagViewSet, FriendLinkViewSet
+from blog.views import PostDetailView
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Snippets API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.IsAuthenticated,),
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.IsAuthenticated,),
 )
 
 router = routers.DefaultRouter()
@@ -59,6 +60,13 @@ urlpatterns = [
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     url(r'api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    url(r"ypost/(?P<pk>\d+)/$", PostDetailView.as_view(), name="detail"),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
