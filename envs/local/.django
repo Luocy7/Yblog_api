@@ -1,5 +1,5 @@
 USE_DOCKER=True
 SECRET_KEY=your-secret-key
 DJANGO_SETTINGS_MODULE=config.settings.local
-DATABASE_URL=mysql://luocy:luocy@127.0.0.1:3306/yblog_dev
+DATABASE_URL=postgres://luocy:luocy@127.0.0.1:5432/yblog
 REDIS_URL=redis://127.0.0.1:6379/0
