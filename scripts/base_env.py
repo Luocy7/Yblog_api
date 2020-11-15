@@ -8,7 +8,7 @@ import django
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 sys.path.append(BASE_DIR)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 django.setup()
 
 from blog.models import Category, Post, Tag, FriendLink

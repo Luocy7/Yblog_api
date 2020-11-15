@@ -18,18 +18,18 @@ def insert_from_dict(md_dict: dict, user):
         post.save()
 
 
-def insert():
+def insert(folder_path):
     clean_database()
 
-    import_folder = Path('D:\\notes')
+    import_folder = Path(folder_path)
     import_md_files = import_folder.glob('*.md')
 
     user = User.objects.create_superuser("luocy", "admin@luocy.com", "luocy")
 
     for md_file in import_md_files:
-        md_dict = MdFile(md_file=md_file.__str__()).to_dict()
+        md_dict = MdFile(md_file=str(md_file)).to_dict()
         insert_from_dict(md_dict, user)
 
 
 if __name__ == '__main__':
-    insert()
+    insert('/Users/luocy/Documents/Notebooks')

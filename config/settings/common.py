@@ -18,6 +18,7 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
+# Project root
 sys.path.append(str(BASE_DIR / "project"))
 
 env = environ.Env()
@@ -46,7 +47,6 @@ LOCAL_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,9 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -122,6 +119,9 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+MEDIA_ROOT = str(BASE_DIR / "media")
+MEDIA_URL = "/media/"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
