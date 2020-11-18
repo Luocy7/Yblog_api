@@ -12,8 +12,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 django.setup()
 
 from blog.models import Category, Post, Tag, FriendLink
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
+from users.models import User
 
 def clean_database():
     print("clean database")

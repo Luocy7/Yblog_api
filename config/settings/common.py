@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'blog.apps.BlogConfig',
+    "users.apps.UsersConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -122,6 +123,8 @@ STATICFILES_FINDERS = (
 
 MEDIA_ROOT = str(BASE_DIR / "media")
 MEDIA_URL = "/media/"
+
+AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

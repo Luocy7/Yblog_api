@@ -12,7 +12,7 @@
                     <h1 class="article-title">{{ post.title }}</h1>
                     <div class="article-content">
                         <div id="article" class="output_wrapper">
-                            {{ post.markdown|safe }}
+                            {{ post.html|safe }}
                         </div>
                     </div>
                 </article>
@@ -117,7 +117,7 @@
         </div>
     </main>
     {% block footscript %}
-        <script src="//cdn.bootcss.com/headroom/0.9.1/headroom.min.js"></script>
-        <script src="{%  static 'js/post.min.js' %}"></script>
+{#        <script src="//cdn.bootcss.com/headroom/0.9.1/headroom.min.js"></script>#}
+{#        <script src="{%  static 'js/post.min.js' %}"></script>#}
     {% endblock footscript %}
 {% endblock %}
