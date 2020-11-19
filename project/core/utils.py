@@ -59,7 +59,7 @@ def generate_rich_content(value):
             # "no-intra-emphasis",
             "space-headers",
             "math-explicit",
-            "disable-indented-code",
+            # "disable-indented-code",
         ]
     )
 
