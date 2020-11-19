@@ -21,4 +21,3 @@ djangorestframework-simplejwt
 psycopg2-binary
 django-model-utils
 misaka
-beautifulsoup4

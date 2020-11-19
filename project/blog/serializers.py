@@ -23,6 +23,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostListSerializer(serializers.ModelSerializer):
     api_url = serializers.CharField(read_only=True)
+    detail_url = serializers.CharField(read_only=True)
 
     class Meta:
         model = Post
@@ -30,13 +31,14 @@ class PostListSerializer(serializers.ModelSerializer):
             "excerpt",
             "author",
             "markdown",
+            "html",
         ]
         depth = 0
 
 
 class PostRetrieveSerializer(serializers.ModelSerializer):
     api_url = serializers.CharField(read_only=True)
-    markdown = serializers.CharField(required=True)
+    detail_url = serializers.CharField(read_only=True)
 
     class Meta:
         model = Post

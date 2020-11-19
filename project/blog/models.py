@@ -82,6 +82,9 @@ class Post(models.Model):
     # 新增 post_views 字段记录阅读量
     post_views = models.PositiveIntegerField(_("Post Views"), default=0, editable=False)
 
+    def rich_content(self):
+        return generate_rich_content(self.markdown)
+
     class Meta:
         verbose_name = _("Post")
         verbose_name_plural = verbose_name
@@ -92,6 +95,9 @@ class Post(models.Model):
 
     def api_url(self):
         return post_reverse("post-detail", kwargs={"pk": self.pk})
+
+    def detail_url(self):
+        return post_reverse("detail", kwargs={"pk": self.pk})
 
     def increase_views(self):
         self.post_views += 1

@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'admin/', admin.site.urls, name="admin_site"),
     url(r'api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    url(r"ypost/(?P<pk>\d+)/$", PostDetailView.as_view(), name="detail"),
+    url(r"detail/(?P<pk>\d+)/$", PostDetailView.as_view(), name="detail"),
 ]
 
 if settings.DEBUG:
